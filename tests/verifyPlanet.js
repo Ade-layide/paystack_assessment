@@ -1,17 +1,21 @@
 const request = require("supertest")("https://swapi.dev/api");
 const assert = require('assert');
 const chai = require('chai');
+
 const expect = require("chai").expect;
 const planet = require("../data/planet");
 const schema = require("../data/schema");
 
+
 chai.use(require('chai-json-schema'));
 
 
-describe('GET /planets/3', function() {
+describe('GET Planet', function() {
     let response;
     this.beforeAll(async () => {
-        response = await request.get("/planets/3")
+        
+        response = await request.get("/planets/3");
+        
     });
 
     it('Verifiies response headers', () => {
@@ -20,7 +24,7 @@ describe('GET /planets/3', function() {
 
         expect(response.header["content-type"]).to.include("application/json");
         
-        expect(response.header["vary"]).to.contain("Accept", "Cookie");
+        expect(response.header["vary"]).to.include('Accept');
        
     })
 

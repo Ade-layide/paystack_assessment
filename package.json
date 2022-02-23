@@ -13,5 +13,8 @@
     "chai-json-schema": "^1.5.1",
     "mocha": "^9.2.1",
     "supertest": "^6.2.2"
+  },
+  "devDependencies": {
+    "nock": "^13.2.4"
   }
 }
