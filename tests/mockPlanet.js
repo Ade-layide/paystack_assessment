@@ -12,10 +12,10 @@ describe('MOCK Planet', function() {
         //mock response to look like actual response
         var mockResponse = mockplanet.mockPlanet;
 
-        //change name property of mock Response to my name
+        //change name property of mock Response to myName var
         mockResponse.name = myName;
 
-        //mocking response
+        //mocking response using nock
         nock('https://swapi.dev/api').get('/planets/3').reply(200, mockResponse);
 
     })
