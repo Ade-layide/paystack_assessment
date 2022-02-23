@@ -1,9 +1,9 @@
 const request = require("supertest")("https://swapi.dev/api");
 const assert = require('assert');
 const chai = require('chai');
-
 const expect = require("chai").expect;
 const planet = require("../data/planet");
+const { performance } = require("perf_hooks");
 const schema = require("../data/schema");
 
 
@@ -50,8 +50,27 @@ describe('GET Planet', function() {
         expect(response.body).to.be.jsonSchema(schema.planetSchema)
     })
 
-    it('Verifiies the response time is less than 3ms', () => {
-        
+    it('Verifiies the response time is less than 3ms', async () => {
+        const start = performance.now();
+    
+        await request.get("/planets/3");
+
+        expect(performance.now() - start).to.be.lessThan(3000);
+
+        if (performance.now() - start > 3000) {
+        console.log("Response time exceeded 3ms");
+        }
+    })
+
+      
+
+    it('Verifiies that 405 status code is returned for a POST method', async () => {
+        const payload = {
+            name: "Automated testing",
+            Completed: true,
+          };
+         response = await request.post("/planets/3", payload);
+         expect(response.statusCode).to.equal(405);
     })
 
 })
