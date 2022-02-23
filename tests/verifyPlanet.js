@@ -73,4 +73,13 @@ describe('GET Planet', function() {
          expect(response.statusCode).to.equal(405);
     })
 
+    it('Verifiies that the response message is "Method "POST" not allowed", for a POST method', async () => {
+        const payload = {
+            name: "Automated testing",
+            Completed: true,
+          };
+         response = await request.post("/planets/3", payload);
+         expect(response.body.detail).to.equal("Method 'POST' not allowed.");
+    })
+
 })
